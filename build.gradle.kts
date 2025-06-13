@@ -8,15 +8,30 @@ plugins {
 }
 
 subprojects {
-    afterEvaluate { project ->
-        if (project.plugins.hasPlugin("com.android.library")) {
-            project.extensions.configure<PublishingExtension> {
-                publications {
-                    create<MavenPublication>("maven") {
-                        from(project.components["release"])
-                        groupId = project.findProperty("GROUP_ID") as String
-                        artifactId = project.name
-                        version = project.findProperty("VERSION_NAME") as String
+    plugins.withId("com.android.library") {
+        extensions.configure<com.android.build.gradle.LibraryExtension>("android") {
+            packaging {
+                resources {
+                    excludes += "META-INF/beans.xml"
+                }
+            }
+        }
+    }
+}
+
+subprojects {
+    plugins.withId("com.android.library") {
+        plugins.withId("maven-publish") {
+            afterEvaluate {
+                extensions.configure<PublishingExtension> {
+                    publications {
+                        create<MavenPublication>("release") {
+                            println("Project name: ${project.name}")
+                            from(components["release"])
+                            groupId = findProperty("GROUP_ID") as String
+                            artifactId = project.name
+                            version = findProperty("VERSION_NAME") as String
+                        }
                     }
                 }
             }
