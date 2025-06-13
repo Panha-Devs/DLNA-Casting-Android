@@ -12,6 +12,10 @@ pluginManagement {
         maven {
             url = uri("https://jitpack.io")
         }
+        maven {
+            url = uri("http://4thline.org/m2")
+            isAllowInsecureProtocol = true
+        }
     }
 }
 
@@ -22,6 +26,10 @@ dependencyResolutionManagement {
 
         maven {
             url = uri("https://jitpack.io")
+        }
+        maven {
+            url = uri("http://4thline.org/m2")
+            isAllowInsecureProtocol = true
         }
     }
 }
