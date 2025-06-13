@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.dlna_casting_android"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.dlna_casting_android"
