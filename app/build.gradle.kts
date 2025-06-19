@@ -15,6 +15,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -48,6 +50,9 @@ dependencies {
     api(project(":dlna-dmc"))
     api(project(":dlna-dms"))
     implementation(libs.permissionx)
+
+    // MultiDex dependency
+    implementation(libs.androidx.multidex)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

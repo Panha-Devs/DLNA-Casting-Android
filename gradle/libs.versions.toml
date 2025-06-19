@@ -9,6 +9,7 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.1"
+multidex = "2.0.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
@@ -33,6 +34,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 kotlin-stdlib = {module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin"}
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 nanohttpd = { module = "org.nanohttpd:nanohttpd", version.ref = "nanohttpd" }
 permissionx = { module = "com.guolindev.permissionx:permissionx", version.ref = "permissionx" }
 
