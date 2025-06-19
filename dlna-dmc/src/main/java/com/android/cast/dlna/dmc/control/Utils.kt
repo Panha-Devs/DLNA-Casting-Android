@@ -25,6 +25,8 @@ internal object MetadataUtils {
 
     fun create(url: String, title: String) = DIDL_LITE_XML.format(buildItemXml(url, title))
 
+    fun createBaseOnType(url: String, title: String) = DIDL_LITE_XML.format(buildItemXmlBaseOnType(url, title))
+
     private fun buildItemXml(url: String, title: String): String {
         val item = VideoItem(title, "-1", title, null)
         val builder = StringBuilder()
@@ -35,6 +37,24 @@ internal object MetadataUtils {
         builder.append("</item>")
         return builder.toString()
     }
+
+    private fun buildItemXmlBaseOnType(url: String, title: String): String {
+        val mimeType = if (url.endsWith(".m3u8")) {
+            "application/vnd.apple.mpegurl"
+        } else {
+            "video/mp4"
+        }
+
+        val item = VideoItem(title, "-1", title, null)
+        return """
+        <item id="$title" parentID="-1" restricted="1">
+            <dc:title>$title</dc:title>
+            <upnp:class>${item.clazz.value}</upnp:class>
+            <res protocolInfo="http-get:*:$mimeType:*;DLNA.ORG_OP=01;">$url</res>
+        </item>
+    """.trimIndent()
+    }
+
 }
 
 private val mainHandler = Handler(Looper.getMainLooper())

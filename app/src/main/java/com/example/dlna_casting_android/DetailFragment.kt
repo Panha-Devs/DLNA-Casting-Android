@@ -10,7 +10,6 @@ import com.example.dlna_casting_android.fragment.ContentFragment
 import com.example.dlna_casting_android.fragment.DeviceInfoFragment
 import com.example.dlna_casting_android.fragment.DeviceServiceActionFragment
 import com.example.dlna_casting_android.fragment.VideoViewFragment
-import com.android.cast.dlna.demo.replace
 import com.android.cast.dlna.dmc.DLNACastManager
 import org.fourthline.cling.model.meta.Device
 

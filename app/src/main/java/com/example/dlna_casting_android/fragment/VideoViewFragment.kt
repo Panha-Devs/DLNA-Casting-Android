@@ -25,7 +25,7 @@ import com.example.dlna_casting_android.DetailContainer
 import com.example.dlna_casting_android.MainActivity
 import com.example.dlna_casting_android.OnKeyEventHandler
 import com.example.dlna_casting_android.R
-import com.android.cast.dlna.demo.VideoUrl
+import com.example.dlna_casting_android.VideoUrl
 import com.android.cast.dlna.dmc.DLNACastManager
 import com.android.cast.dlna.dmc.control.DeviceControl
 import com.android.cast.dlna.dmc.control.OnDeviceControlListener

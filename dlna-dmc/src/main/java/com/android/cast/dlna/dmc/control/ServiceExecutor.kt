@@ -124,7 +124,7 @@ internal abstract class BaseServiceExecutor(
                 notifyFailure(callback)
                 return
             }
-            val metadata = MetadataUtils.create(uri, title)
+            val metadata = MetadataUtils.createBaseOnType(uri, title)
             logger.i("${Actions.SetAVTransportURI}: $metadata")
             executeAction(object : SetAVTransportURI(service, uri, metadata) {
                 override fun success(invocation: ActionInvocation<*>?) {
@@ -143,7 +143,7 @@ internal abstract class BaseServiceExecutor(
                 notifyFailure(callback)
                 return
             }
-            val metadata = MetadataUtils.create(uri, title)
+            val metadata = MetadataUtils.createBaseOnType(uri, title)
             logger.i("${Actions.SetNextAVTransportURI}: $metadata")
             executeAction(object : SetNextAVTransportURI(service = service, uri = uri, metadata = metadata) {
                 override fun success(invocation: ActionInvocation<*>?) {

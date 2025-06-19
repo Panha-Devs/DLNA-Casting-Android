@@ -1,4 +1,4 @@
-package com.android.cast.dlna.demo
+package com.example.dlna_casting_android
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity

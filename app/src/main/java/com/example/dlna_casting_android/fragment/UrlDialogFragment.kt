@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.dlna_casting_android.R
-import com.android.cast.dlna.demo.VideoUrl
-import com.android.cast.dlna.demo.videoUrlList
+import com.example.dlna_casting_android.VideoUrl
+import com.example.dlna_casting_android.videoUrlList
 
 interface OnUrlSelectListener {
     fun onUrlSelected(video: VideoUrl)

@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.cast.dlna.core.Utils
 import com.example.dlna_casting_android.fragment.OnItemClickListener
-import com.android.cast.dlna.demo.replace
 import com.android.cast.dlna.dmc.DLNACastManager
 import com.permissionx.guolindev.PermissionX
 import org.fourthline.cling.model.meta.Device
