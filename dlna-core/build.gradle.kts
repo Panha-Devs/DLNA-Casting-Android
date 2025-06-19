@@ -10,7 +10,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 23
+        minSdk = 24
         lint.targetSdk = 34
         consumerProguardFiles("consumer-rules.pro")
     }

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.dlna_casting_android"
-        minSdk = 23
+        minSdk = 24
         lint.targetSdk = 34
         versionCode = 1
         versionName = "1.0"
