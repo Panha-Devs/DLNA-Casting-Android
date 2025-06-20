@@ -40,4 +40,7 @@ dependencies {
     api(project(":dlna-core"))
 
     implementation(libs.kotlin.stdlib)
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }

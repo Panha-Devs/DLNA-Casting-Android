@@ -21,13 +21,17 @@ class CastControlImpl(
     listener: OnDeviceControlListener,
 ) : DeviceControl {
 
-    private val avTransportService: AVServiceExecutorImpl
+    private val avTransportService: AVServiceExecutorImpl =
+        AVServiceExecutorImpl(
+            controlPoint,
+            device.findService(DLNACastManager.SERVICE_TYPE_AV_TRANSPORT)
+        )
+
     private val renderService: RendererServiceExecutorImpl
     private val contentService: ContentServiceExecutorImpl
     var released = false
 
     init {
-        avTransportService = AVServiceExecutorImpl(controlPoint, device.findService(DLNACastManager.SERVICE_TYPE_AV_TRANSPORT))
         avTransportService.subscribe(object : SubscriptionListener {
             override fun failed(subscriptionId: String?) {
                 if (!released) listener.onDisconnected(device)
@@ -45,9 +49,18 @@ class CastControlImpl(
                 if (!released) listener.onEventChanged(event)
             }
         }, AVTransportLastChangeParser())
-        renderService = RendererServiceExecutorImpl(controlPoint, device.findService(DLNACastManager.SERVICE_TYPE_RENDERING_CONTROL))
-        renderService.subscribe(object : SubscriptionListener {}, RenderingControlLastChangeParser())
-        contentService = ContentServiceExecutorImpl(controlPoint, device.findService(DLNACastManager.SERVICE_TYPE_CONTENT_DIRECTORY))
+        renderService = RendererServiceExecutorImpl(
+            controlPoint,
+            device.findService(DLNACastManager.SERVICE_TYPE_RENDERING_CONTROL)
+        )
+        renderService.subscribe(
+            object : SubscriptionListener {},
+            RenderingControlLastChangeParser()
+        )
+        contentService = ContentServiceExecutorImpl(
+            controlPoint,
+            device.findService(DLNACastManager.SERVICE_TYPE_CONTENT_DIRECTORY)
+        )
         //TODO: check the parser
         contentService.subscribe(object : SubscriptionListener {}, AVTransportLastChangeParser())
     }
@@ -55,11 +68,19 @@ class CastControlImpl(
     // --------------------------------------------------------
     // ---- AvTransport ---------------------------------------
     // --------------------------------------------------------
-    override fun setAVTransportURI(uri: String, title: String, callback: ServiceActionCallback<Unit>?) {
+    override fun setAVTransportURI(
+        uri: String,
+        title: String,
+        callback: ServiceActionCallback<Unit>?
+    ) {
         avTransportService.setAVTransportURI(uri, title, callback)
     }
 
-    override fun setNextAVTransportURI(uri: String, title: String, callback: ServiceActionCallback<Unit>?) {
+    override fun setNextAVTransportURI(
+        uri: String,
+        title: String,
+        callback: ServiceActionCallback<Unit>?
+    ) {
         avTransportService.setNextAVTransportURI(uri, title, callback)
     }
 
@@ -129,11 +150,32 @@ class CastControlImpl(
     // --------------------------------------------------------
     // ---- Content -------------------------------------------
     // --------------------------------------------------------
-    override fun browse(objectId: String, flag: BrowseFlag, filter: String, firstResult: Int, maxResults: Int, callback: ServiceActionCallback<DIDLContent>?) {
+    override fun browse(
+        objectId: String,
+        flag: BrowseFlag,
+        filter: String,
+        firstResult: Int,
+        maxResults: Int,
+        callback: ServiceActionCallback<DIDLContent>?
+    ) {
         contentService.browse(objectId, flag, filter, firstResult, maxResults, callback)
     }
 
-    override fun search(containerId: String, searchCriteria: String, filter: String, firstResult: Int, maxResults: Int, callback: ServiceActionCallback<DIDLContent>?) {
-        contentService.search(containerId, searchCriteria, filter, firstResult, maxResults, callback)
+    override fun search(
+        containerId: String,
+        searchCriteria: String,
+        filter: String,
+        firstResult: Int,
+        maxResults: Int,
+        callback: ServiceActionCallback<DIDLContent>?
+    ) {
+        contentService.search(
+            containerId,
+            searchCriteria,
+            filter,
+            firstResult,
+            maxResults,
+            callback
+        )
     }
 }

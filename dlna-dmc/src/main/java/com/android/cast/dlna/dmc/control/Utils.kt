@@ -17,7 +17,10 @@ package com.android.cast.dlna.dmc.control
 
 import android.os.Handler
 import android.os.Looper
+import com.android.cast.dlna.core.Logger
+import kotlinx.coroutines.suspendCancellableCoroutine
 import org.fourthline.cling.support.model.item.VideoItem
+import kotlin.coroutines.resume
 
 internal object MetadataUtils {
     private const val DIDL_LITE_XML =
@@ -25,7 +28,8 @@ internal object MetadataUtils {
 
     fun create(url: String, title: String) = DIDL_LITE_XML.format(buildItemXml(url, title))
 
-    fun createBaseOnType(url: String, title: String) = DIDL_LITE_XML.format(buildItemXmlBaseOnType(url, title))
+    fun createBaseOnType(url: String, title: String) =
+        DIDL_LITE_XML.format(buildItemXmlBaseOnType(url, title))
 
     private fun buildItemXml(url: String, title: String): String {
         val item = VideoItem(title, "-1", title, null)
@@ -64,5 +68,30 @@ fun executeInMainThread(runnable: Runnable) {
         runnable.run()
     } else {
         mainHandler.post(runnable)
+    }
+}
+
+private val logger = Logger.create("DeviceControlExtension")
+
+suspend fun <T> safeCoroutineLauncher(action: (callback: ServiceActionCallback<T>) -> Unit): Result<T> {
+    return suspendCancellableCoroutine { continuation ->
+        val callback = object : ServiceActionCallback<T> {
+            override fun onSuccess(result: T) {
+                if (continuation.isActive) {
+                    continuation.resume(Result.success(result))
+                }
+            }
+
+            override fun onFailure(msg: String) {
+                if (continuation.isActive) {
+                    continuation.resume(Result.failure(Exception(msg)))
+                }
+            }
+        }
+        action.invoke(callback)
+
+        continuation.invokeOnCancellation {
+            logger.d("invokeOnCancellation with extension function")
+        }
     }
 }
